@@ -1,5 +1,7 @@
 # Welcome to your CDK TypeScript project
 
+This is the result of the CDK workshop : https://cdkworkshop.com/20-typescript/
+
 You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`CdkWorkshopStack`)
 which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
 

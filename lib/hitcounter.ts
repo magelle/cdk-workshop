@@ -1,4 +1,4 @@
-import {aws_dynamodb, aws_lambda} from "aws-cdk-lib";
+import {aws_dynamodb, aws_lambda, RemovalPolicy} from "aws-cdk-lib";
 import {Construct} from "constructs";
 
 export interface HitCounterProps {
@@ -15,7 +15,9 @@ export class HitCounter extends Construct {
         super(scope, id);
 
         const table = new aws_dynamodb.Table(this, 'Hits', {
-            partitionKey: {name: 'path', type: aws_dynamodb.AttributeType.STRING}
+            partitionKey: {name: 'path', type: aws_dynamodb.AttributeType.STRING},
+//            removalPolicy: RemovalPolicy.DESTROY,
+            encryption: aws_dynamodb.TableEncryption.AWS_MANAGED
         })
         this.table = table
 
