@@ -23,7 +23,7 @@ test('Lambda Has Environment Variables', () => {
     const stack = new Stack();
     // WHEN
     new HitCounter(stack, 'MyTestConstruct', {
-        downstream:  new aws_lambda.Function(stack, 'TestFunction', {
+        downstream: new aws_lambda.Function(stack, 'TestFunction', {
             runtime: aws_lambda.Runtime.NODEJS_14_X,
             handler: 'hello.handler',
             code: aws_lambda.Code.fromAsset('lambda')
@@ -54,7 +54,7 @@ test('DynamoDB Table Created With Encryption', () => {
     const stack = new Stack();
     // WHEN
     new HitCounter(stack, 'MyTestConstruct', {
-        downstream:  new aws_lambda.Function(stack, 'TestFunction', {
+        downstream: new aws_lambda.Function(stack, 'TestFunction', {
             runtime: aws_lambda.Runtime.NODEJS_14_X,
             handler: 'hello.handler',
             code: aws_lambda.Code.fromAsset('lambda')
@@ -67,4 +67,19 @@ test('DynamoDB Table Created With Encryption', () => {
             SSEEnabled: true
         }
     });
+});
+
+test('read capacity can be configured', () => {
+    const stack = new Stack();
+
+    expect(() => {
+        new HitCounter(stack, 'MyTestConstruct', {
+            downstream: new aws_lambda.Function(stack, 'TestFunction', {
+                runtime: aws_lambda.Runtime.NODEJS_14_X,
+                handler: 'hello.handler',
+                code: aws_lambda.Code.fromAsset('lambda')
+            }),
+            readCapacity: 3
+        });
+    }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
 });
